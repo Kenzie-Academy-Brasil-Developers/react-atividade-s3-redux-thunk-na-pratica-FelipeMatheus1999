@@ -1,18 +1,37 @@
-import { useDispatch } from "react-redux";
+import "./style.css";
+import { useDispatch, useSelector } from "react-redux";
 import { addCommentThunk } from "../../store/user/thunks";
 import { useState } from "react";
 
 const User = () => {
-  const [comment, setComment] = useState("");
+  const [newComment, setNewComment] = useState("");
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const mapComments = user.comments.map((value, index) => {
+    return (
+      value && (
+        <span className="comments" key={index}>
+          {value}
+        </span>
+      )
+    );
+  });
 
   return (
     <>
-      <input onChange={(event) => setComment(event.target.value)} />
-      <button onClick={() => dispatch(addCommentThunk(comment))}>
-        new comment
+      <input
+        className="input"
+        onChange={(event) => setNewComment(event.target.value)}
+      />
+      <button
+        className="button"
+        onClick={() => dispatch(addCommentThunk(newComment))}
+      >
+        adding
       </button>
-      <p></p>
+      <h1 className="title">{user.name}</h1>
+      <div className="divComments">{mapComments}</div>
     </>
   );
 };

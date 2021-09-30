@@ -8,3 +8,4 @@ export const addCommentThunk = (comment) => {
     dispatch(addComment(updatedUser));
   };
 };
+
